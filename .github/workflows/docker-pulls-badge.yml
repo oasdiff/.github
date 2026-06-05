@@ -1,0 +1,62 @@
+name: Refresh profile badges
+
+# The org profile README badges used shields.io live endpoints (github
+# stars / release / downloads / contributors and docker pulls). Those call
+# GitHub or Docker Hub at render time through shields' shared infrastructure
+# and intermittently fail with "rate limited by upstream service" or
+# "Unable to select next github token from pool". Instead, refresh small
+# shields "endpoint" JSONs here once a day; the README badges read those
+# static files from raw.githubusercontent and never trigger a live upstream
+# call, so they cannot be rate-limited. If a refresh fails, the last good
+# values stay committed and the badges keep rendering.
+
+on:
+  schedule:
+    - cron: '17 6 * * *' # daily
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: oasdiff/oasdiff
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build badge endpoint JSONs
+        run: |
+          set -euo pipefail
+          mkdir -p badges
+          hum() { python3 -c "n=$1; print(f'{n/1_000_000:.1f}M' if n>=1_000_000 else (f'{n/1_000:.1f}k' if n>=1_000 else str(n)))"; }
+          emit() { printf '{"schemaVersion":1,"label":"%s","message":"%s","color":"%s"}\n' "$1" "$2" "$3" > "badges/$4"; }
+
+          stars=$(gh api "repos/$REPO" -q .stargazers_count)
+          emit "stars" "$(hum "$stars")" "blue" stars.json
+
+          rel=$(gh api "repos/$REPO/releases/latest" -q .tag_name)
+          emit "release" "$rel" "blue" release.json
+
+          dl=$(gh api --paginate "repos/$REPO/releases" -q '[.[].assets[].download_count]|add//0' | awk '{s+=$1} END{print s+0}')
+          emit "release downloads" "$(hum "$dl")" "blue" downloads.json
+
+          contrib=$(gh api --paginate "repos/$REPO/contributors?per_page=100&anon=1" -q 'length' | awk '{s+=$1} END{print s+0}')
+          emit "contributors" "$contrib" "blue" contributors.json
+
+          pulls=$(curl -fsSL https://hub.docker.com/v2/repositories/tufin/oasdiff/ | python3 -c "import sys,json;print(json.load(sys.stdin)['pull_count'])")
+          emit "docker pulls" "$(hum "$pulls")" "blue" docker-pulls.json
+
+          echo "--- generated badges ---"; cat badges/*.json
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain badges/)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add badges/
+            git commit -m "chore: refresh profile badges"
+            git push
+          else
+            echo "badges unchanged"
+          fi
