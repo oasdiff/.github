@@ -4,12 +4,12 @@
 
 oasdiff is the open-source toolchain teams use to catch breaking changes in OpenAPI specs before they ship. Run it as a CLI, in CI via the GitHub Action, or use the hosted side-by-side review workflow at [oasdiff.com](https://www.oasdiff.com) to approve or reject each change with a commit-status check.
 
-[![release](https://img.shields.io/github/v/release/oasdiff/oasdiff?label=release)](https://github.com/oasdiff/oasdiff/releases)
-[![stars](https://img.shields.io/github/stars/oasdiff/oasdiff?logo=github&label=stars)](https://github.com/oasdiff/oasdiff/stargazers)
-[![contributors](https://img.shields.io/github/contributors/oasdiff/oasdiff)](https://github.com/oasdiff/oasdiff/graphs/contributors)
-[![release downloads](https://img.shields.io/github/downloads/oasdiff/oasdiff/total?label=release%20downloads)](https://github.com/oasdiff/oasdiff/releases)
-[![docker pulls](https://img.shields.io/docker/pulls/tufin/oasdiff?label=docker%20pulls)](https://hub.docker.com/r/tufin/oasdiff)
-[![license](https://img.shields.io/github/license/oasdiff/oasdiff)](https://github.com/oasdiff/oasdiff/blob/main/LICENSE)
+[![release](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/oasdiff/.github/main/badges/release.json)](https://github.com/oasdiff/oasdiff/releases)
+[![stars](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/oasdiff/.github/main/badges/stars.json&logo=github)](https://github.com/oasdiff/oasdiff/stargazers)
+[![contributors](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/oasdiff/.github/main/badges/contributors.json)](https://github.com/oasdiff/oasdiff/graphs/contributors)
+[![release downloads](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/oasdiff/.github/main/badges/downloads.json)](https://github.com/oasdiff/oasdiff/releases)
+[![docker pulls](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/oasdiff/.github/main/badges/docker-pulls.json)](https://hub.docker.com/r/tufin/oasdiff)
+[![license](https://img.shields.io/badge/license-Apache--2.0-blue)](https://github.com/oasdiff/oasdiff/blob/main/LICENSE)
 
 ## What it does
 
