@@ -2,7 +2,7 @@
 
 **OpenAPI breaking-change detection for API teams.**
 
-oasdiff is the open-source toolchain teams use to catch breaking changes in OpenAPI specs before they ship. Run it as a CLI, in CI via the GitHub Action, or use the hosted side-by-side review workflow at [oasdiff.com](https://www.oasdiff.com) to approve or reject each change with a commit-status check.
+oasdiff is the open-source toolchain teams use to catch breaking changes in OpenAPI specs before they ship. Run it as a CLI, in CI via the GitHub Action, or open a free side-by-side review of any two specs and share it with your team. oasdiff Pro adds approve / reject on the pull request with a commit-status check that blocks the merge until every breaking change is signed off.
 
 [![release](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/oasdiff/.github/main/badges/release.json)](https://github.com/oasdiff/oasdiff/releases)
 [![stars](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/oasdiff/.github/main/badges/stars.json&logo=github)](https://github.com/oasdiff/oasdiff/stargazers)
@@ -16,7 +16,7 @@ oasdiff is the open-source toolchain teams use to catch breaking changes in Open
 - **Diff and changelog.** A precise, machine-readable diff between any two OpenAPI specs, plus a human-readable changelog.
 - **Breaking-change checks.** A library of rules that flag changes likely to break API consumers.
 - **PR annotations.** The [oasdiff GitHub Action](https://github.com/oasdiff/oasdiff-action) marks breaking changes inline on the changed lines, in the Files Changed tab.
-- **Side-by-side review.** Open any spec pair at [oasdiff.com/diff](https://www.oasdiff.com/diff) for a visual review.
+- **Free side-by-side review.** Turn any comparison into a shareable visual review: add `--open` to `oasdiff breaking` or `changelog`, click the link the [GitHub Action](https://github.com/oasdiff/oasdiff-action) adds to each pull request, or paste two specs at [oasdiff.com/diff](https://www.oasdiff.com/diff). The specs are encrypted before upload, so the review stays private to whoever holds the link.
 - **Validate.** Catch OpenAPI and JSON Schema violations standalone, no diff required.
 
 ## Quick start
@@ -37,7 +37,7 @@ go install github.com/oasdiff/oasdiff@latest                                    
 curl -fsSL https://raw.githubusercontent.com/oasdiff/oasdiff/main/install.sh | sh   # macOS or Linux
 ```
 
-Or paste two specs at [oasdiff.com/diff](https://www.oasdiff.com/diff).
+Or paste two specs at [oasdiff.com/diff](https://www.oasdiff.com/diff). Add `--open` to `oasdiff breaking` or `changelog` to open a shareable side-by-side review of the changes in your browser.
 
 ## Repositories
 
