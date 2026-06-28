@@ -30,7 +30,9 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p badges
-          hum() { python3 -c "n=$1; print(f'{n/1_000_000:.1f}M' if n>=1_000_000 else (f'{n/1_000:.1f}k' if n>=1_000 else str(n)))"; }
+          # Round half-up (GitHub's display convention) so e.g. 1250 -> 1.3k, not Python's
+          # banker's-rounding 1.2k, keeping these badges consistent with GitHub's own counts.
+          hum() { python3 -c "from decimal import Decimal as D, ROUND_HALF_UP as H; n=$1; q=lambda d: (D(n)/d).quantize(D('0.1'), rounding=H); print(f'{q(1_000_000)}M' if n>=1_000_000 else (f'{q(1_000)}k' if n>=1_000 else str(n)))"; }
           emit() { printf '{"schemaVersion":1,"label":"%s","message":"%s","color":"%s"}\n' "$1" "$2" "$3" > "badges/$4"; }
 
           stars=$(gh api "repos/$REPO" -q .stargazers_count)
