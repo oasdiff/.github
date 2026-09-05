@@ -18,6 +18,7 @@ oasdiff is the open-source toolchain teams use to catch breaking changes in Open
 - **PR annotations.** The [oasdiff GitHub Action](https://github.com/oasdiff/oasdiff-action) marks breaking changes inline on the changed lines, in the Files Changed tab.
 - **Free side-by-side review.** Turn any comparison into a shareable visual review: add `--open` to `oasdiff breaking` or `changelog`, click the link the [GitHub Action](https://github.com/oasdiff/oasdiff-action) adds to each pull request, or paste two specs at [oasdiff.com/diff](https://www.oasdiff.com/diff). The specs are encrypted before upload, so the review stays private to whoever holds the link.
 - **Validate.** Catch OpenAPI and JSON Schema violations standalone, no diff required.
+- **A public model of API changes.** OpenAPI gave API definitions a formal model; the [OpenAPI Changes Model](https://github.com/oasdiff/openapi-changes-model) does the same for API changes: every possible edit to a contract, classified as breaking or not, in one machine-readable file. oasdiff is its reference implementation.
 
 ## Quick start
 
@@ -45,6 +46,7 @@ Or paste two specs at [oasdiff.com/diff](https://www.oasdiff.com/diff). Add `--o
 |---|---|
 | [oasdiff/oasdiff](https://github.com/oasdiff/oasdiff) | Core CLI and Go library |
 | [oasdiff/oasdiff-action](https://github.com/oasdiff/oasdiff-action) | GitHub Action for pull-request CI |
+| [oasdiff/openapi-changes-model](https://github.com/oasdiff/openapi-changes-model) | A formal model of OpenAPI changes; oasdiff is its reference implementation |
 
 ## oasdiff Pro
 
